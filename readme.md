@@ -3,7 +3,8 @@
     - affiliates
 
 2. Change 'where like or' to 'full text index'
-    From: (Line 97) 
+    - From: (Line 97) 
+        ```sql
         (JobCategories.name LIKE '%キャビンアテンダント%'
         OR JobTypes.name LIKE '%キャビンアテンダント%'
         OR Jobs.name LIKE '%キャビンアテンダント%'
@@ -24,10 +25,13 @@
         OR CareerPaths.name LIKE '%キャビンアテンダント%'
         OR RecQualifications.name LIKE '%キャビンアテンダント%'
         OR ReqQualifications.name LIKE '%キャビンアテンダント%')
-    To: 
+        ```
+    - To: 
+        ```sql
         MATCH(JobCategories.name,JobTypes.name,Jobs.name,Jobs.description,Jobs.detail,Jobs.business_skill,Jobs.knowledge,Jobs.location,Jobs.activity,Jobs.salary_statistic_group,Jobs.salary_range_remarks,Jobs.restriction,Jobs.remarks,Personalities.name,PracticalSkills.name,BasicAbilities.name,Tools.name,CareerPaths.name,RecQualifications.name) AGAINST('キャビンアテンダント')
+        ```
 
-    Note: 
+    - Note: 
         - By using Full Text Index, full text search uses the match(field) against('text') syntax. Its avoiding using LIKE seach with leading wildcard where it will not use an index when searching the record.
         - optimal indexes 
 
